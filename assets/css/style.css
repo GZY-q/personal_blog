@@ -20,6 +20,8 @@ body {
   line-height: 1.65;
 }
 
+html { scroll-padding-top: 72px; }
+
 .container { width: min(1100px, 92vw); margin: 0 auto; }
 
 .site-header {
@@ -29,13 +31,16 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-.brand { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .2px; }
+.brand { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .3px; transition: color .2s ease, opacity .2s ease; }
+.brand:hover { opacity: .9; }
 .nav { display: flex; gap: 6px; padding: 4px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
 .nav a { color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 8px; transition: all .2s ease; }
 .nav a:hover { color: var(--text); background: var(--surface); box-shadow: var(--shadow-sm); }
+.nav a.active { color: #0a0c10; background: linear-gradient(180deg, var(--accent), #3d8bff); box-shadow: var(--shadow-sm); }
+.nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .nav-toggle { display: none; background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 6px; }
 
-.section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+.section { padding: 84px 0; border-bottom: 1px solid var(--border); }
 .hero { padding: 96px 0 84px; background:
   radial-gradient(1200px 600px at 10% -20%, rgba(122, 208, 255, .12), transparent 50%),
   radial-gradient(1000px 500px at 90% -10%, rgba(106, 168, 255, .12), transparent 60%),
@@ -43,11 +48,13 @@ body {
 }
 .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: center; }
 .hero-aside { display: grid; place-items: center; }
-.avatar { width: 150px; height: 150px; border-radius: 24px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.08); }
+.avatar { width: 180px; height: 180px; border-radius: 28px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.08); }
 .avatar-image { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
 .title-wrap { display: flex; flex-direction: column; gap: 8px; }
-.badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: -20px; }
-.badge { display: inline-block; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); background: rgba(255,255,255,0.02); }
+.hero h1 { margin: 0; font-size: clamp(28px, 4.2vw, 44px); line-height: 1.15; background: linear-gradient(90deg, #ffffff, #b9d6ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 0px; }
+.badge { display: inline-block; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); background: rgba(255,255,255,0.02); transition: transform .12s ease, box-shadow .2s ease; }
+.badge:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(106,168,255,.15); }
 .subtitle { color: var(--muted); margin-top: 10px; }
 .cta { display: flex; gap: 10px; margin-top: 10px; }
 .btn { display: inline-block; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: transform .12s ease, box-shadow .2s ease, filter .2s ease; }
@@ -55,6 +62,7 @@ body {
 .btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: var(--shadow); }
 .btn-ghost { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text); }
 .btn-ghost:hover { background: rgba(255,255,255,0.06); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .contacts { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 6px; }
 .contacts a { color: var(--text); }
@@ -63,7 +71,7 @@ body {
 .timeline-item { margin: 18px 0; }
 .timeline .time { color: var(--muted); font-size: 14px; }
 
-.section-title { display: inline-flex; align-items: center; gap: 10px; position: relative; padding-left: 14px; }
+.section-title { display: inline-flex; align-items: center; gap: 10px; position: relative; padding-left: 14px; margin: 0 0 18px; }
 .section-title::before { content: ""; position: absolute; left: 0; width: 6px; height: 18px; background: linear-gradient(180deg, var(--accent), transparent); border-radius: 3px; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -75,7 +83,8 @@ body {
 
 .experience header .meta { color: var(--muted); margin-top: -6px; margin-bottom: 8px; }
 
-.project-card { border: 1px solid var(--border); border-radius: 14px; overflow: clip; background: linear-gradient(180deg, var(--surface), var(--elevated)); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+.project-card { border: 1px solid var(--border); border-radius: 14px; overflow: clip; background: linear-gradient(180deg, var(--surface), var(--elevated)); margin-bottom: 14px; box-shadow: var(--shadow-sm); transition: transform .12s ease, box-shadow .2s ease; }
+.project-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .project-header { width: 100%; text-align: left; background: transparent; color: var(--text); border: none; padding: 16px 18px; font-weight: 700; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
 .project-header::after { content: "⌄"; color: var(--muted); transition: transform .15s ease; }
 .project-header[aria-expanded="true"]::after { transform: rotate(180deg); }
@@ -83,6 +92,12 @@ body {
 .project-body { padding: 14px 16px; color: var(--muted); }
 
 .site-footer { text-align: center; padding: 28px 0; color: var(--muted); }
+
+/* 可访问性与降级动画 */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
+}
 
 @media (max-width: 960px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }

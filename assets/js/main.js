@@ -34,6 +34,32 @@ document.addEventListener('DOMContentLoaded', function () {
   // 年份
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  // 滚动时导航高亮当前区块
+  const sectionIds = Array.from(document.querySelectorAll('main section[id]')).map(s => s.id);
+  const navLinks = sectionIds.map(id => document.querySelector(`nav a[href="#${id}"]`)).filter(Boolean);
+  const activate = id => {
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
+  };
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) activate(entry.target.id);
+    });
+  }, { rootMargin: '-60% 0px -35% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }) : null;
+  if (io) {
+    document.querySelectorAll('main section[id]').forEach(sec => io.observe(sec));
+  } else {
+    // 退化方案：滚动监听
+    window.addEventListener('scroll', () => {
+      let current = sectionIds[0];
+      const scrollY = window.scrollY + 100;
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) current = id;
+      });
+      activate(current);
+    }, { passive: true });
+  }
 });
 
 
